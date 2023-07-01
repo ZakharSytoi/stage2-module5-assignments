@@ -40,7 +40,7 @@ public class LocalProcessor {
     public void listIterator(List<String> stringList) {
         stringArrayList = new ArrayList<>(stringList);
         for(String i: stringList){
-            System.out.println(i.hashCode());
+            if(i != null)System.out.println(i.hashCode());
         }
     }
 

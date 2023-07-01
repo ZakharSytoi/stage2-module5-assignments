@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 import assignments.annotations.FullNameProcessorGeneratorAnnotation;
@@ -15,16 +16,16 @@ import lombok.Setter;
 @Getter
 @Setter
 public class LocalProcessor {
-    private String processorName;
+    private StringBuilder processorName;
     private Long period = 10000000000000L;
     private String processorVersion;
     private Integer valueOfCheap;
     private Scanner informationScanner;
-    private ArrayList<String> stringArrayList;
+    private List<String> stringArrayList;
 
     public LocalProcessor(String processorName, Long period, String processorVersion, Integer valueOfCheap,
                           Scanner informationscanner, LinkedList<String> stringArrayList) {
-        this.processorName = processorName;
+        this.processorName = new StringBuilder(processorName);
         this.period = period;
         this.processorVersion = processorVersion;
         this.valueOfCheap = valueOfCheap;
@@ -36,7 +37,7 @@ public class LocalProcessor {
     }
 
     @ListIteratorAnnotation
-    public void listIterator(LinkedList<String> stringList) {
+    public void listIterator(List<String> stringList) {
         stringArrayList = new ArrayList<>(stringList);
         for (int i = 0; i < period; i++) {
             System.out.println(stringArrayList.get(i).hashCode());
@@ -44,13 +45,11 @@ public class LocalProcessor {
     }
 
     @FullNameProcessorGeneratorAnnotation
-    public String fullNameProcessorGenerator(LinkedList<String> stringList) {
-        StringBuilder sb = new StringBuilder();
+    public String fullNameProcessorGenerator(List<String> stringList) {
         for (int i = 0; i < stringArrayList.size(); i++) {
-            sb.append(stringList.get(i)).append(" ");
+            processorName.append(stringList.get(i)).append(" ");
         }
-        processorName = sb.toString();
-        return processorName;
+        return processorName.toString();
     }
 
     @ReadFullProcessorNameAnnotation

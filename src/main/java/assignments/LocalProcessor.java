@@ -2,6 +2,7 @@ package assignments;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Scanner;
 
@@ -16,19 +17,19 @@ import lombok.Setter;
 public class LocalProcessor {
     private String processorName;
     private Long period = 10000000000000L;
-    private String ProcessorVersion;
+    private String processorVersion;
     private Integer valueOfCheap;
     private Scanner informationScanner;
-    private LinkedList<String> stringArrayList = new LinkedList<>();
+    private ArrayList<String> stringArrayList;
 
     public LocalProcessor(String processorName, Long period, String processorVersion, Integer valueOfCheap,
                           Scanner informationscanner, LinkedList<String> stringArrayList) {
         this.processorName = processorName;
         this.period = period;
-        ProcessorVersion = processorVersion;
+        this.processorVersion = processorVersion;
         this.valueOfCheap = valueOfCheap;
         this.informationScanner = informationscanner;
-        this.stringArrayList = stringArrayList;
+        this.stringArrayList = new ArrayList<>(stringArrayList);
     }
 
     public LocalProcessor() {
@@ -36,7 +37,7 @@ public class LocalProcessor {
 
     @ListIteratorAnnotation
     public void listIterator(LinkedList<String> stringList) {
-        stringArrayList = new LinkedList<>(stringList);
+        stringArrayList = new ArrayList<>(stringList);
         for (int i = 0; i < period; i++) {
             System.out.println(stringArrayList.get(i).hashCode());
         }
@@ -44,9 +45,11 @@ public class LocalProcessor {
 
     @FullNameProcessorGeneratorAnnotation
     public String fullNameProcessorGenerator(LinkedList<String> stringList) {
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < stringArrayList.size(); i++) {
-            processorName+=stringList.get(i)+" ";
+            sb.append(stringList.get(i)).append(" ");
         }
+        processorName = sb.toString();
         return processorName;
     }
 
@@ -55,7 +58,7 @@ public class LocalProcessor {
         try {
             informationScanner = new Scanner(file);
             while (informationScanner.hasNext()) {
-                ProcessorVersion += informationScanner.nextLine();
+                processorVersion += informationScanner.nextLine();
             }
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);

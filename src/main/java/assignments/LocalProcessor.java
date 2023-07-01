@@ -39,15 +39,15 @@ public class LocalProcessor {
     @ListIteratorAnnotation
     public void listIterator(List<String> stringList) {
         stringArrayList = new ArrayList<>(stringList);
-        for (int i = 0; i < period; i++) {
-            System.out.println(stringArrayList.get(i).hashCode());
+        for(String i: stringList){
+            System.out.println(i.hashCode());
         }
     }
 
     @FullNameProcessorGeneratorAnnotation
     public String fullNameProcessorGenerator(List<String> stringList) {
-        for (int i = 0; i < stringArrayList.size(); i++) {
-            processorName.append(stringList.get(i)).append(" ");
+        for(String i: stringList){
+            processorName.append(i).append(" ");
         }
         return processorName.toString();
     }
